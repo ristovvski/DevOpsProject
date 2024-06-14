@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales</title>
+</head>
+<body>
+<header>
+    <h1>Sales</h1>
+</header>
+<section>
+    <ul th:each="sale : ${bookSales}">
+        <li th:text="${sale.getTimestamp()} + ' ' + ${sale.getBook().getTitle()} + ' Price with discount: ' + ${sale.getBook().getBookPrice().getPrice() - sale.getBook().getBookPrice().getDiscount()}"></li>
+    </ul>
+
+    <h2 th:if="${totalPrice!=null}" th:text="'Total price:' + ${totalPrice}"></h2>
+
+
+<!--    <h2>Filter By Book:</h2>-->
+<!--    <form th:action="@{'/books/review/' + ${id}}" th:method="GET">-->
+<!--        <label for="from">Date From:</label>-->
+<!--        <input type="datetime-local" id="from" name="from" required><br>-->
+<!--        <label for="to">Date To:</label>-->
+<!--        <input type="datetime-local" id="to" name="to" required><br>-->
+
+<!--        <input type='submit' value='Search'>-->
+<!--    </form>-->
+</section>
+
+</body>
+</html>

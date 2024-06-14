@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews</title>
+</head>
+<body>
+<header>
+    <h1 th:text="${book.getTitle()}"></h1>
+</header>
+<section>
+    <h2 th:text="${book.getGenre()}">Genre</h2>
+    <h2 th:text="${book.getYear()}">Year</h2>
+    <h2>Authors:</h2>
+    <ul th:each="author : ${book.getAuthors()}">
+        <li th:text="${author.getAuthorFullname().getName()} + ' ' + ${author.getAuthorFullname().getSurname()}"></li>
+    </ul>
+
+    <h2>Reviews:</h2>
+    <ul th:each="review : ${reviews}">
+        <li th:text="'Description: ' + ${review.getDescription()}"></li>
+        <li th:text="'Score: ' +${review.getScore()}"></li>
+        <li th:text="'Date & Time: ' + ${#temporals.format(review.getTimestamp(), 'dd-MM-yyyy HH:mm:ss')}"></li>
+    </ul>
+
+    <h2>Filter By Date:</h2>
+    <form th:action="@{'/books/review/' + ${id}}" th:method="GET">
+        <label for="from">Date From:</label>
+        <input type="datetime-local" id="from" name="from" required><br>
+        <label for="to">Date To:</label>
+        <input type="datetime-local" id="to" name="to" required><br>
+
+        <input type='submit' value='Search'>
+    </form>
+</section>
+
+</body>
+</html>
