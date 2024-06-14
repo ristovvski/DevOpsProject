@@ -1,9 +1,19 @@
-FROM eclipse-temurin:17-jdk-focal
+FROM maven:3.8.5-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
 
-WORKDIR /src
-
-COPY target/lab-0.0.1-SNAPSHOT.jar /src/book-management-system.jar
-
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/lab-0.0.1-SNAPSHOT.jar lab-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
+ENTRYPOINT ["java","-jar","lab-0.0.1-SNAPSHOT.jar"]
 
-ENTRYPOINT ["java", "-jar", "book-management-system.jar"]
+
+#FROM eclipse-temurin:17-jdk-focal
+#
+#WORKDIR /src
+#
+#COPY target/lab-0.0.1-SNAPSHOT.jar /src/book-management-system.jar
+#
+#EXPOSE 8080
+#
+#ENTRYPOINT ["java", "-jar", "book-management-system.jar"]
