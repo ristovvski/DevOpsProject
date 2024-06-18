@@ -2,22 +2,22 @@ kind: Service
 apiVersion: v1
 metadata:
   name: springboot-postgres-k8s
+#  namespace: book-store-ns
   labels:
-    name: springboot-postgres-k8s
+    app: springboot-postgres-k8s
 spec:
   ports:
-    - port: 8080
+    - port: 80
       targetPort: 8080
-      protocol: TCP
-      nodePort: 30166
   selector:
     app: springboot-postgres-k8s
-  type: NodePort
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: springboot-postgres-k8s
+#  namespace: book-store-ns
 spec:
   replicas: 3
   selector:
