@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "authors")
 public class Author {
-    // Testing GitHub Actions for Presentation
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
